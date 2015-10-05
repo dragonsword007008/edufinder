@@ -1,0 +1,27 @@
+<h1>Login </h1>
+<?php echo $this->escapeHtml($this->messages); ?>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('edufinder/default', array('controller' => 'index', 'action' => 'login')));
+$form->prepare();
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('email')).'<br>';
+echo $this->formRow($form->get('password')).'<br>';
+echo $this->formRow($form->get('rememberme')).'<br>';
+echo $this->formSubmit($form->get('submit')).'<br>';
+echo $this->form()->closeTag().'<br>';
+?>
+<?php // view helper
+    if ($user = $this->identity()) {
+        echo 'Logged in as ' . '<strong>'.$this->escapeHtml($user->email).'</strong>';
+?>		
+ | <a href="<?php echo $this->url('edufinder/default', array('controller' => 'index', 'action' => 'logout'));?>"><?php echo $this->translate('Logout'); ?></a> 
+<?php
+    } else {
+        echo 'Not logged in';
+        echo '<p>
+	<a href=\"<?php echo $this->url(\'edufinder/default\', array(\'controller\' => \'registration\', \'action\' => \'index\'));?>"><?php echo $this->translate(\'Register\'); ?></a> |  
+	<a href=\"<?php echo $this->url(\'edufinder/default\', array(\'controller\' => \'registration\', \'action\' => \'forgotten-password\'));?>\"><?php echo $this->translate(\'Forgotten Password\'); ?></a>
+	</p>';
+    	}
+?>

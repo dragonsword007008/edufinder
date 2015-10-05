@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Edufinder Index</title>
+</head>
+
+<body>
+<h1>Edufinder Controller Index Action</h1>
+<p>
+	<a href="<?php echo $this->url('edufinder/default', array('controller' => 'index', 'action' => 'login'));?>"><?php echo $this->translate('Login'); ?></a>
+	|<a href="<?php echo $this->url('edufinder/default', array('controller' => 'registration', 'action' => 'index'));?>"><?php echo $this->translate('Register'); ?></a> |  
+	<a href="<?php echo $this->url('edufinder/default', array('controller' => 'registration', 'action' => 'forgotten-password'));?>"><?php echo $this->translate('Forgotten Password'); ?></a>
+</p>
+</body>
+</html>
