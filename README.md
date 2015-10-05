@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ZendSkeletonApplication
 =======================
 
@@ -116,3 +117,6 @@ it should look something like below:
     }
 
 Restart the nginx, now you should be ready to go!
+=======
+# edufinder
+>>>>>>> 17bee5b0690c5f8ba7cad002acb9cc4d59af5621
