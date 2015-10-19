@@ -5,7 +5,7 @@ class ForgottenPasswordForm extends Form
 {
     public function __construct($name = null)
     {
-        parent::__construct('registration');
+        parent::__construct('forgottenpassword');
         $this->setAttribute('method', 'post');
 		
         $this->add(array(

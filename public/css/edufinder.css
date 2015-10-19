@@ -1,4 +1,128 @@
+body {
+	background-color: #cec8be;
+	}
+	
 .navbar-inverse {
-	background-color: #f5f1eb;
+	background-color: #d9d6cf;
 	background-image: inherit ;
+	border-bottom: 4px solid white;
+	height: 100px;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+   text-shadow: 0 0 0 rgba(0,0,0,0.25);
+}
+
+.navbar-inverse .navbar-nav>li>a {
+	color: #222;
+	font-size: 1.35em;
+	}
+
+.navbar-inverse .navbar-nav>li>a:hover {
+	border-bottom:2px solid #62808c;
+	}
+
+.hdright {
+	margin:	auto !important;
+	}
+
+.hdright>li>a {
+	padding-top: 10px !important;
+	padding-bottom: 10px !important;
+	}
+
+.hdright>li>a:hover {
+	 text-decoration: none !important;
+    background-color: #eee !important;
+	 border-bottom: inherit !important;
+	}
+
+div.ws_dribbles +div {
+	display: none;
+	}
+
+footer .container .navbar-nav {
+	margin: 0;
+	}
+
+footer .navbar-brand, .navbar-nav>li>a {
+	color: #806754;
+	font-family: inherit;
+   font-size: small;
+	}
+
+footer .container .ftleft>li>a {
+	border-right: 1px solid #806754;
+	padding-top: 0;
+	padding-bottom: 0;
+	}
+
+footer .container .ftright>li>a {
+	padding-top: 0;
+	padding-bottom: 0;
+	}
+	
+footer .container .ftright>li:last-child>a {
+	border-left: 1px solid #806754;
+	}
+	
+form[role='form'] label {
+	font-size: medium;
+	font-weight: inherit;
+	margin-left: 1em;
+	}	
+
+form[role='form'] ul li {
+	font-size: small;
+	color: red;
+	font-weight: normal;
+	}
+	
+div.checkbox {
+	padding-left: 50px;
+	}
+
+div.checkbox label {
+	vertical-align: top;
+	}
+	
+div.checkbox input {
+	margin-top: 10px;
+	}	
+
+#section2,#section3,#bar2,#bar3 {
+	display: none;
+	}
+#section2 .seperator {
+	border-bottom: 1px dashed #cec8be;
+	}
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+	border: none;
+	}
+#name {
+	font-size: large;
+	}
+	
+.description {
+	font-size: medium;
+	}
+
+.sectionPro {
+	 background-color: #F3F0F0;
+    border-radius: 5px;
+	 
+	}
+
+.sectionPro2, .sectionPro1 {
+	 padding: 2em;
+	 margin-bottom: 2em;
+	}	
+			
+@media (min-width: 768px){
+	.navbar-nav {
+		 margin: 40px;
+	}
+	.navbar>.container .navbar-brand {
+		margin-left: inherit;
+		}
 }

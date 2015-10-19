@@ -1,0 +1,129 @@
+<br><br><br><br>
+<div class="row" id="hat">
+   <img src="<?php echo $this->basePath('img/bar_registration.png') ?>" alt="educators_register" style="width:100%"/>
+</div>
+<br>
+<div class="row" style="text-align:center">
+   <img src="<?php echo $this->basePath('img/registration3-1.png') ?>" alt="educators_register" id="bar1"/>
+   <img src="<?php echo $this->basePath('img/registration3-2.png') ?>" alt="educators_register" id="bar2"/>
+   <img src="<?php echo $this->basePath('img/registration3-3.png') ?>" alt="educators_register" id="bar3"/>
+</div>
+<br>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('edufinder/default', array('controller' => 'registration', 'action' => 'index', 'id' => 'educator')));
+$form->prepare();
+echo $this->form()->openTag($form);
+?>
+	<h5 style="color:grey">Please note all fields are mandetory</h5>
+   <br>
+   <div id="section1">
+   	<div class="jumbotron">
+      <div class="form-group col-md-6">
+         <?php echo $this->formRow($form->get('first_name')); ?>
+      </div>
+      <div class="form-group col-md-6">
+         <?php echo $this->formRow($form->get('last_name')); ?>
+      </div>
+      <div class="form-group col-md-12">
+         <?php echo $this->formRadio($form->get('gender')); ?>
+      </div>     
+      <div class="form-group col-md-12">
+         <?php echo $this->formRow($form->get('email')); ?>
+      </div>
+      <div class="form-group col-md-6">
+         <?php echo $this->formRow($form->get('password')); ?>
+      </div>
+      <div class="form-group col-md-6">
+         <?php echo $this->formRow($form->get('password_confirm')); ?>
+      </div>
+      <div class="form-group col-md-6">
+         <?php echo $this->formRow($form->get('mobile_number')); ?>
+      </div>
+      <div class="form-group col-md-6">
+         <span class="form-control" style="visibility:hidden">&nbsp;</span>
+      </div>
+      <div class="form-group col-md-4">
+         <?php echo $this->formRow($form->get('suburb')); ?>
+      </div>
+      <div class="form-group col-md-4">
+         <?php echo $this->formRow($form->get('postcode')); ?>
+      </div>
+      <div class="form-group col-md-4">
+         <?php echo $this->formRow($form->get('state')); ?>
+      </div>
+      <div class="checkbox col-md-12">
+         <?php echo $this->formCheckbox($form->get('agree_term')); ?><label>* I agree to the Terms & Conditions</label>
+      </div>
+      <div><a href="#hat" class="btn btn-danger col-md-1 pull-right" id="next1">Next</a></div>
+      <br><br><br><br><br><br><br><br><br><br><br><br>
+      </div>
+   </div>
+   
+   <div id="section2">
+  		<div class="jumbotron">
+      <h4>Curricular Specialisations</h4>
+      <div class="form-group col-md-6">
+         <?php echo $this->formRow($form->get('curricular_name')); ?>
+      </div>
+      <div class="form-group col-md-6">
+         <?php echo $this->formSelect($form->get('year_or_grade_curricular')); ?>
+      </div>
+      <div class="col-md-6">
+         <?php echo $this->formRadio($form->get('tuition_service_curricular')); ?>
+      </div>
+      <div class="form-group col-md-6">
+         <?php echo $this->formRow($form->get('hourly_rate_curricular')); ?>
+      </div>
+      <br>
+      <div class="form-group col-md-12 seperator">&nbsp;</div>
+      <br>
+      <h4>Extra-Curricular Specialisations</h4>
+      <div class="form-group col-md-6">
+         <?php echo $this->formRow($form->get('specialisation_name')); ?>
+      </div>
+      <div class="form-group col-md-6">
+         <?php echo $this->formSelect($form->get('year_or_grade_specialisation')); ?>
+      </div>
+      <div class="col-md-6">
+         <?php echo $this->formRadio($form->get('tuition_service_specialisation')); ?>
+      </div>
+      <div class="form-group col-md-6">
+         <?php echo $this->formRow($form->get('hourly_rate_specialisation')); ?>
+      </div>
+      <div>
+         <a href="#hat" class="btn btn-danger col-md-1 pull-right" id="next2">Next</a>
+         <a href="#hat" class="btn btn-danger col-md-1 pull-right" id="back2">Back</a>
+      </div>
+      <br><br><br><br>
+      </div>
+   </div>
+
+   <div id="section3">
+   	<div class="jumbotron">
+      <div class="form-group col-md-6">
+         <?php echo $this->formRow($form->get('profile_description')); ?>
+      </div>
+      <div class="form-group col-md-6">
+         <?php echo $this->formRow($form->get('photo')); ?>
+      </div>
+      <div class="form-group col-md-12">
+         <?php echo $this->formRow($form->get('captcha')); ?>
+      </div>
+      <div> 
+         <?php echo $this->formSubmit($form->get('submit')) ?>
+         <a href="#hat" class="btn btn-danger col-md-1 pull-right" id="back3">Back</a> 
+      </div>
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+      </div>
+   </div>
+   <br>
+
+<?php echo $this->form()->closeTag(); ?>
+<br>
+
+<p>
+	<a href="<?php echo $this->url('edufinder/default', array('controller' => 'index', 'action' => 'login'));?>"><?php echo $this->translate('Login'); ?></a> |
+	<a href="<?php echo $this->url('edufinder/default', array('controller' => 'registration', 'action' => 'forgotten-password'));?>"><?php echo $this->translate('Forgotten Password'); ?></a>
+</p>

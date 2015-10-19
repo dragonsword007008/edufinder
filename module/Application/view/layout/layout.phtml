@@ -16,15 +16,17 @@
                         ->prependStylesheet($this->basePath('css/engine1/style.css')) 
                         ->prependStylesheet($this->basePath('css/style.css'))
                         ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
-                        ->prependStylesheet($this->basePath('css/bootstrap.min.css'))?>
+                        ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+								?>
 
         <!-- Scripts -->
         <?php echo $this->headScript()
-        ->prependFile($this->basePath('js/engine1/jquery.js'))
+		  		->prependFile($this->basePath('js/edufinder.js'))
+        		->prependFile($this->basePath('js/engine1/jquery.js'))
             ->prependFile($this->basePath('js/bootstrap.min.js'))
             ->prependFile($this->basePath('js/jquery.min.js'))
             ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
-            ->prependFile($this->basePath('js/html5shiv.min.js'),   'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath('js/html5shiv.min.js'),   'text/javascript', array('conditional' => 'lt IE 9'))
         ; ?>
 
     </head>
@@ -41,15 +43,14 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li ><a href="<?php echo $this->url('edufinder') ?>"><?php echo $this->translate('Educators') ?></a></li>
-                        <li ><a href="<?php echo $this->url('edufinder') ?>"><?php echo $this->translate('Parents') ?></a></li>
+                        <li ><a href="<?php echo $this->url('edufinder/default', array('controller' => 'parent', 'action' => 'index')) ?>"><?php echo $this->translate('Parent') ?></a></li>
+                        <li ><a href="<?php echo $this->url('edufinder/default', array('controller' => 'educator', 'action' => 'index')) ?>"><?php echo $this->translate('Educator') ?></a></li>
                         <li ><a href="<?php echo $this->url('edufinder') ?>"><?php echo $this->translate('Success Stories') ?></a></li>
-                        <li ><a href="<?php echo $this->url('edufinder') ?>"><?php echo $this->translate('Contact us') ?></a></li>
-                        <li ><a href="<?php echo $this->url('edufinder') ?>"><?php echo $this->translate('Terms') ?></a></li>
+                        <li ><a href="<?php echo $this->url('edufinder') ?>"><?php echo $this->translate('Contact Us') ?></a></li>
                     </ul>
-                      <ul class="nav navbar-nav navbar-right">
-                        <li ><a href="<?php echo $this->url('edufinder') ?>"><?php echo $this->translate('Search') ?></a></li>
-                        <li ><a href="<?php echo $this->url('edufinder') ?>"><?php echo $this->translate('Login / Sign up') ?></a></li>
+                      <ul class="nav navbar-nav navbar-right hdright">
+                        <li ><a class="navbar-brand" href="<?php echo $this->url('edufinder/default', array('controller' => 'registration', 'action' => 'index')) ?>"><img src="<?php echo $this->basePath('img/signup.png') ?>" alt="sign up"/></a></li>
+                        <li ><a class="navbar-brand" href="<?php echo $this->url('edufinder/default', array('controller' => 'index', 'action' => 'login')) ?>"><img src="<?php echo $this->basePath('img/login.png') ?>" alt="login"/></a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -58,7 +59,26 @@
             <?php echo $this->content; ?>
             <hr>
             <footer>
-                <p>&copy; <?php echo date('Y') ?> by  Edufinder Team  <?php echo $this->translate('All rights reserved.') ?>Powered by <?php echo $this->translate('Zend Technologies Ltd.')?></p>
+            <nav class="navbar " role="navigation">
+               <div class="container">
+                  <div class="collapse navbar-collapse">
+                          <ul class="nav navbar-nav ftleft">
+                              <li ><a href="<?php echo $this->url('edufinder') ?>"><?php echo $this->translate('Term of Use') ?></a></li>
+                              <li ><a href="<?php echo $this->url('edufinder') ?>"><?php echo $this->translate('Privacy Policy') ?></a></li>
+                              <li ><a href="<?php echo $this->url('edufinder') ?>"><?php echo $this->translate('Disclaimer') ?></a></li>
+                              <li ><a href="<?php echo $this->url('edufinder') ?>"><?php echo $this->translate('Sitemap') ?></a></li>
+                          </ul>
+                          
+                          <ul class="nav navbar-nav navbar-right ftright">
+                              <li ><a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('img/twitter.png') ?>" alt="Zend Framework 2"/></a></li>
+                              <li ><a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('img/facebook.png') ?>" alt="Zend Framework 2"/></a></li>
+                              <li ><a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('img/google_plus.png') ?>" alt="Zend Framework 2"/></a></li>
+                              <li ><a class="navbar-brand" href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Copyright 2015 EduFinder') ?></a></li>
+                    			</ul>
+                   </div> 
+                </div>
+             </nav>
+                
             </footer>
         </div> <!-- /container -->
         <?php echo $this->inlineScript() ?>

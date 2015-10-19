@@ -2,42 +2,89 @@
 namespace Edufinder\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Edufinder\Model\Edufinder;
-use Edufinder\Form\RegistrationForm;
-use Edufinder\Form\RegistrationFilter;
+use Edufinder\Model\Users;
+use Edufinder\Form\RegistrationFormEdu;
+use Edufinder\Form\RegistrationFilterEdu;
+use Edufinder\Form\RegistrationFormPar;
+use Edufinder\Form\RegistrationFilterPar;
 use Edufinder\Form\ForgottenPasswordForm;
 use Edufinder\Form\ForgottenPasswordFilter;
 use Zend\Mail\Message;
+use Zend\Validator\File\Size;
 
 class RegistrationController extends AbstractActionController
 {
     protected $usersTable;  
-    
+	 
     public function indexAction()
-    {
-        // A test instantiation to make sure it works. Not used in the application. You can remove the next line
-        // $myValidator = new ConfirmPassword();
-        $form = new RegistrationForm();
-        $form->get('submit')->setValue('Register');
-        
+    {   
+		  $id = $this->params()->fromRoute('id');
+		  if($id == 'educator') {
+			  $form = new RegistrationFormEdu();
+			  $registrationFilter = new RegistrationFilterEdu($this->getServiceLocator());
+			  $role = 'educator';
+			  }else if($id == 'parent') {
+				  $form = new RegistrationFormPar();
+				  $registrationFilter = new RegistrationFilterPar($this->getServiceLocator());
+				  $role = 'parent';
+				  } else{
+					  }
+        $form->get('submit')->setValue('Submit');        
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $form->setInputFilter(new RegistrationFilter($this->getServiceLocator()));
-            $form->setData($request->getPost());
-             if ($form->isValid()) {             
+			  	$picture = 'url';
+            $form->setInputFilter($registrationFilter);
+				$File    = $this->params()->fromFiles('photo');
+				//file upload
+            $data = array_merge_recursive(
+						$request->getPost()->toArray(),
+						$request->getFiles()->toArray()
+				  );
+            $form->setData($data);
+             if ($form->isValid()) {
+					 //$size = new Size(array('min'=>20000000)); //minimum bytes filesize 
+					 $adapter = new \Zend\File\Transfer\Adapter\Http(); 
+					 $adapter->setDestination('http://edufinder.localhost/img/uploads/'); //Windows
+					 //$adapter->setDestination('/var/www/html/edufinder/data/uploads/'); //Linux
+						  if ($adapter->receive($File['name'])) {
+								echo 'Profile picture uploaded';
+								$picture = dirname(__DIR__).'\data\uploads\\'.$File['name'];
+						  }
+					 /*$adapter->setValidators(array($size), $File['name']);
+					 if (!$adapter->isValid()){
+						  $dataError = $adapter->getMessages();
+						  $error = array();
+						  foreach($dataError as $key=>$row)
+						  {
+								$error[] = $row;
+						  } //set formElementErrors
+						  $form->setMessages(array('photo'=>$error ));
+					 } else {
+						  $adapter->setDestination(dirname(__DIR__).'data/uploads');
+						  if ($adapter->receive($File['name'])) {
+								echo 'Profile picture uploaded';
+								$picture = dirname(__DIR__).'/data/uploads/'.$File['name'];
+						  }
+					 }*/  			             
                 $data = $form->getData();
                 $data = $this->prepareData($data);
-                $edufinder = new Edufinder();
-                $edufinder->exchangeArray($data);
-
-                $this->getUsersTable()->saveUser($edufinder);
-                
-                $this->sendConfirmationEmail($edufinder);
-                $this->flashMessenger()->addMessage($edufinder->email);
+                $data['picture'] = $picture;
+					 $users = new Users();
+                $users->exchangeArray($data);
+                $this->getUsersTable()->saveUsers($users);
+                $this->sendConfirmationEmail($users,$role);
+                $this->flashMessenger()->addMessage($users->email);
                 return $this->redirect()->toRoute('edufinder/default', array('controller'=>'registration', 'action'=>'registration-success'));                   
             }            
         }
-        return new ViewModel(array('form' => $form));
+		  	$view = new ViewModel(array('form' => $form));
+		   if($id == 'educator') {
+			  $view->setTemplate('edufinder/registration/educator/index.phtml');
+			  }else if($id == 'parent') {
+				  $view->setTemplate('edufinder/registration/parent/index.phtml');
+				  } else{
+					  }
+        return $view;
     }
     
     public function registrationSuccessAction()
@@ -50,21 +97,36 @@ class RegistrationController extends AbstractActionController
             }
         }
         return new ViewModel(array('email' => $email));
-    }   
+    }
+	    
     public function confirmEmailAction()
     {
-        $token = $this->params()->fromRoute('id');
+        $params = $this->params()->fromRoute('id');
+		  $params = explode('&',$params);
+		  $token = $params[0];
+		  $role = $params[1];
+		  $email = $params[2];
         $viewModel = new ViewModel(array('token' => $token));
-        try {
-            $user = $this->getUsersTable()->getUserByToken($token);
-            $id = $user->id;
-            $this->getUsersTable()->activateUser($id);
+		  try {
+			  $sm = $this->getServiceLocator();
+			  if($role == 'educator'){
+				  $users = $sm->get('Edufinder\Model\EducatorTable')->getUsersByToken($token);
+				  $users_id = $users->id;
+				  $sm->get('Edufinder\Model\EducatorTable')->activateUsers($users_id);
+				  $viewModel->setTemplate('edufinder/registration/educator/confirm-email.phtml');
+				  }else if($role = 'parent'){
+					  $users = $sm->get('Edufinder\Model\ParentTable')->getUsersByToken($token);
+					  $users_id = $users->id;
+					  $sm->get('Edufinder\Model\ParentTable')->activateUsers($users_id);
+					  $viewModel->setTemplate('edufinder/registration/parent/confirm-email.phtml');
+					  }else{}
         }
         catch(\Exception $e) {
             $viewModel->setTemplate('edufinder/registration/confirm-email-error.phtml');
         }
-        return $viewModel;
+        return $viewModel(array('email' => $email));
     }
+	 
     public function forgottenPasswordAction()
     {
         $form = new ForgottenPasswordForm();
@@ -77,12 +139,10 @@ class RegistrationController extends AbstractActionController
                 $data = $form->getData();
                 $email = $data['email'];
                 $usersTable = $this->getUsersTable();
-                $edufinder = $usersTable->getUserByEmail($email);
+                $users = $usersTable->getUsersByEmail($email);
                 $password = $this->generatePassword();
-                $edufinder->password = $this->encriptPassword($this->getStaticSalt(), $password, $edufinder->password_salt);
-//              $usersTable->changePassword($edufinder->id, $password);
-//              or
-                $usersTable->saveUser($edufinder);
+                $users->password = $this->encriptPassword($this->getStaticSalt(), $password, $users->password_salt);
+                $usersTable->saveUsers($users);
                 $this->sendPasswordByEmail($email, $password);
                 $this->flashMessenger()->addMessage($email);
                 return $this->redirect()->toRoute('edufinder/default', array('controller'=>'registration', 'action'=>'password-change-success'));
@@ -112,11 +172,9 @@ class RegistrationController extends AbstractActionController
             $data['password'], 
             $data['password_salt']
         );
-//      $data['registration_date'] = date('Y-m-d H:i:s');
         $date = new \DateTime();
         $data['registration_date'] = $date->format('Y-m-d H:i:s');
         $data['registration_token'] = md5(uniqid(mt_rand(), true)); // $this->generateDynamicSalt();
-//      $data['registration_token'] = uniqid(php_uname('n'), true); 
         $data['email_confirmed'] = 0;
         return $data;
     }
@@ -171,9 +229,6 @@ class RegistrationController extends AbstractActionController
               return false;
          }
      
-         // all inputs clean, proceed to build password
-     
-         // change these strings if you want to include or exclude possible password characters
          $chars = "abcdefghijklmnopqrstuvwxyz";
          $caps = strtoupper($chars);
          $nums = "0123456789";
@@ -216,19 +271,30 @@ class RegistrationController extends AbstractActionController
     
     public function getUsersTable()
     {
-        if (!$this->usersTable) {
-            $sm = $this->getServiceLocator();
-            $this->usersTable = $sm->get('Edufinder\Model\UsersTable');
-        }
+        $id = $this->params()->fromRoute('id');
+		  if($id == 'educator') {
+				if (!$this->usersTable) {
+						$sm = $this->getServiceLocator();
+						$this->usersTable = $sm->get('Edufinder\Model\EducatorTable');
+				  }
+			  }else if($id == 'parent') {
+					if (!$this->usersTable) {
+							$sm = $this->getServiceLocator();
+							$this->usersTable = $sm->get('Edufinder\Model\ParentTable');
+						}
+				  } else{
+					  }
+
         return $this->usersTable;
     }
-    public function sendConfirmationEmail($edufinder)
+	 
+    public function sendConfirmationEmail($users,$role)
     {
         // $view = $this->getServiceLocator()->get('View');
         $transport = $this->getServiceLocator()->get('mail.transport');
         $message = new Message();
         $this->getRequest()->getServer();  //Server vars
-        $message->addTo($edufinder->email)
+        $message->addTo($users->email)
                 ->addFrom('dragonsword007008@gmail.com')
                 ->setSubject('Please, confirm your registration!')
                 ->setBody("Please, click the link to confirm your registration => " . 
@@ -236,9 +302,10 @@ class RegistrationController extends AbstractActionController
                     $this->url()->fromRoute('edufinder/default', array(
                         'controller' => 'registration', 
                         'action' => 'confirm-email', 
-                        'id' => $edufinder->registration_token)));
+                        'id' => $users->registration_token.'&'.$role.'&'.$users->email)));
         $transport->send($message);
     }
+	 
     public function sendPasswordByEmail($email, $password)
     {
         $transport = $this->getServiceLocator()->get('mail.transport');

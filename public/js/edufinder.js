@@ -1,0 +1,31 @@
+// JavaScript Document
+$(document).ready(function(){
+	$('#next1').on('click',function(event){
+		event.preventDefault();
+		$('#section1').css('display','none');
+		$('#bar1').css('display','none');
+		$('#section2').css('display','block');
+		$('#bar2').css('display','inline-block');
+		});
+	$('#next2').on('click',function(event){
+		event.preventDefault();
+		$('#section2').css('display','none');
+		$('#bar2').css('display','none');
+		$('#section3').css('display','block');
+		$('#bar3').css('display','inline-block');
+		});
+	$('#back2').on('click',function(event){
+		event.preventDefault();
+		$('#section2').css('display','none');
+		$('#bar2').css('display','none');
+		$('#section1').css('display','block');
+		$('#bar1').css('display','inline-block');
+		});	
+	$('#back3').on('click',function(event){
+		event.preventDefault();
+		$('#section3').css('display','none');
+		$('#bar3').css('display','none');
+		$('#section2').css('display','block');
+		$('#bar2').css('display','inline-block');
+		});			
+	})

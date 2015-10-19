@@ -1,0 +1,17 @@
+
+<h1> Registration Complete</h1>
+<table>
+<tr>
+	<th>id</th>
+	<th>first name</th>
+	<th>last name</th>
+	<th>email</th>
+</tr>
+		<tr>
+			<td><?php  echo $row['educator_id']; ?></td>
+			<td><?php  echo $row['first_name']; ?></td>
+			<td><?php  echo $row['last_name']; ?></td>
+			<td><?php  echo $row['email']; ?></td>
+		</tr>
+</table>
+<a href="<?php echo $this->url('edufinder/default', array('controller' => 'index', 'action' => 'logout'));?>"><?php echo $this->translate('Logout'); ?></a> 

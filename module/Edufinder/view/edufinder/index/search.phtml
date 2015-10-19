@@ -1,0 +1,35 @@
+<br><br><br><br>
+<div class="row" id="hat">
+   <img src="<?php echo $this->basePath('img/bar_find_an_educator.png') ?>" alt="educator search" style="width:100%"/>
+</div>
+<br>
+
+ <div class="sectionPro table-responsive sectionPro2">
+      <h4>Search Results</h4>
+      <table class="table profile table-hover table-striped">
+		<?php
+			foreach ($rowset as $row) {
+		?>
+                  <h5><?php echo $row['curricular_name']; ?></h5>
+            <tr class="description">
+            	<td rowspan="10" style="width:15%">
+               	 <div>
+               	    <img src="<?php echo $row['picture']; ?>" alt="avatar" width="100%"/>
+                   </div>                
+               </td>
+               <td>
+              		 <?php echo $row['first_name'] ; ?>
+                   <?php echo $row['last_name'] ; ?>
+            	</td>
+               <td>
+              		 <?php echo $row['profile_description']; ?>
+            	</td>
+               <td>
+              		 <?php echo '$ '.$row['hourly_rate_curricular'].'/h'; ?>
+            	</td>
+            </tr>
+       <?php
+			}
+		?>
+          </table>             
+   </div>

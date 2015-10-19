@@ -1,0 +1,101 @@
+<br><br><br><br>
+<div class="row" id="hat">
+   <img src="<?php echo $this->basePath('img/bar_educator.png') ?>" alt="educators_register" style="width:100%"/>
+</div>
+<br>
+<?php
+	foreach ($rowset as $row) {
+?>
+   <div class="sectionPro table-responsive sectionPro1"> 	
+          <table class="table profile">
+            <tr>
+            	<td rowspan="10" style="width:30%">
+               	 <div>
+               	    <img src="<?php echo $row['picture']; ?>" alt="avatar" width="100%"/>
+                   </div>                
+               </td>
+               <td id="name">
+               	<b><?php echo $row['first_name']; ?>
+            			<?php echo $row['last_name']; ?>
+                  </b>
+               </td>
+            </tr>
+            <tr class="description">
+            	<td><span style="text-decoration:underline;font-size:medium"><?php echo $this->translate($row['curricular_name']); ?></span>
+            	</td>
+            </tr>
+            <tr class="description">
+            	<td>
+            		<span style="word-wrap:break-word;"><?php echo $this->translate($row['profile_description']);?></span>
+            	</td>
+            </tr>
+            <tr class="description">
+            	<td>
+            	</td>
+            </tr>
+            <tr class="description">
+            	<td>
+            	</td>
+            </tr>
+            <tr class="description">
+            	<td>
+            	</td>
+            </tr>
+            <tr class="description">
+            	<td>
+            	</td>
+            </tr>
+            <tr class="description">
+            	<td>
+            	</td>
+            </tr>
+            <tr class="description">
+            	<td>
+            	</td>
+            </tr>
+            <tr class="description">
+            	<td>
+            	</td>
+            </tr>
+          </table>             
+   </div>
+  
+   <div class="sectionPro table-responsive sectionPro2">
+      <h4>Specialisations</h4>
+      <h5><?php echo $row['curricular_name']; ?></h5>
+      <table class="table profile table-hover table-striped">
+            <tr>
+            	<th>
+               	Year
+               </th>
+               <th>
+               	Price
+               </th>
+               <th>
+               	Tuition Service
+               </th>
+               <th>
+               	Locations
+               </th>
+            </tr>
+            <tr class="description">
+            	<td>
+              		 <?php echo $row['year_or_grade_curricular']; ?>
+            	</td>
+               <td>
+              		 <?php echo '$ '.$row['hourly_rate_curricular']; ?>
+            	</td>
+               <td>
+              		 <?php echo $row['tuition_service_curricular']; ?>
+            	</td>
+               <td>
+              		 <?php echo $row['suburb']; ?>
+            	</td>
+            </tr>
+          </table>             
+   </div>
+   <br>
+<?php
+	}
+?>
+	<p><a href="<?php echo $this->url('edufinder/default', array('controller' => 'index', 'action' => 'logout'));?>"><?php echo $this->translate('Logout'); ?></a></p>

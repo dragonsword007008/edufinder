@@ -2,28 +2,41 @@
 namespace Edufinder\Form;
 use Zend\Form\Form;
 
-class EdufinderForm extends Form
+class LoginForm extends Form
 {
     public function __construct($name = null)
     {
-        parent::__construct('edufinder');
+        parent::__construct('login');
         $this->setAttribute('method', 'post');
+		  $this->setAttribute('role','form');
         $this->add(array(
             'name' => 'email',
             'attributes' => array(
                 'type'  => 'email',
-            ),
-            'options' => array(
-                'label' => 'Email',
-            ),
+					 'class'	=>	'form-control',
+					 'placeholder' => 'Email'
+            ),       
         ));
         $this->add(array(
             'name' => 'password',
             'attributes' => array(
                 'type'  => 'password',
+					 'class'	=>	'form-control',
+					 'placeholder' => 'Password'
+            ),
+        ));
+		   $this->add(array(
+            'name' => 'role',
+				'type'  => 'Radio',
+            'attributes' => array(
+					 'id'		=>	'role',
+					 'value' => 'role',
             ),
             'options' => array(
-                'label' => 'Password',
+					  'value_options' => array(
+						'educator' => 'Educator',
+						'parent' => 'Parent',
+				  ),
             ),
         ));
         $this->add(array(
@@ -44,6 +57,7 @@ class EdufinderForm extends Form
                 'type'  => 'submit',
                 'value' => 'Go',
                 'id' => 'submitbutton',
+					 'class'	=>	'btn btn-danger pull-left',
             ),
         )); 
     }

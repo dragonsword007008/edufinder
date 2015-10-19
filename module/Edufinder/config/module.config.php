@@ -1,11 +1,13 @@
 <?php
 return array(
-'static_salt' => 'aFGQ475SDsdfsaf2342', // I am going to move it to global.php. It should be accessable everywhere
+'static_salt' => 'aFGQ475SDsdfsaf2342',
     'controllers' => array(
         'invokables' => array(
             'Edufinder\Controller\Index' => 'Edufinder\Controller\IndexController',   
             'Edufinder\Controller\Registration' => 'Edufinder\Controller\RegistrationController', 
             'Edufinder\Controller\Admin' => 'Edufinder\Controller\AdminController',   
+            'Edufinder\Controller\Educator' => 'Edufinder\Controller\EducatorController',
+				'Edufinder\Controller\Parent' => 'Edufinder\Controller\ParentController',   
         ),
     ),
     'router' => array(
@@ -13,7 +15,7 @@ return array(
             'edufinder' => array(
                 'type'    => 'Literal',
                 'options' => array(
-                    'route'    => '/edufinder',
+                    'route'    => '/',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Edufinder\Controller',
                         'controller'    => 'Index',
@@ -25,24 +27,20 @@ return array(
                     'default' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/[:controller[/:action[/:id]]]',
+                            'route'    => 'edufinder/[:controller[/:action[/:id]]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id'         => '[a-zA-Z0-9_-]*',
+                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',									 
                             ),
                             'defaults' => array(
                             ),
                         ),
-                    ),
+                    ), 
                 ),
             ),          
         ),
     ),
     'view_manager' => array(
-//        'template_map' => array(
-//            'layout/Edufinder'           => __DIR__ . '/../view/layout/Edufinder.phtml',
-//        ),
         'template_path_stack' => array(
             'edufinder' => __DIR__ . '/../view'
         ),
@@ -50,8 +48,6 @@ return array(
         'display_exceptions' => true,
     ),
     'service_manager' => array(
-        // added for Authentication and Authorization. Without this each time we have to create a new instance.
-        // This code should be moved to a module to allow Doctrine to overwrite it
        'aliases' => array( // !!! aliases not alias
             'Zend\Authentication\AuthenticationService' => 'my_edufinder_service',
         ),

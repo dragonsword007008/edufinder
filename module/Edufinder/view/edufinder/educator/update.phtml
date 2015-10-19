@@ -1,0 +1,10 @@
+<?php
+echo '<h1>Update</h1>';
+$form->prepare();
+// Assuming the "contact/process" route exists...
+$form->setAttribute('action', $this->url('edufinder/default', array('controller' => 'educator', 'action' => 'update', 'id' => $educator_id))); //'contact/process'));
+// Set the method attribute for the form
+$form->setAttribute('method', 'post');
+echo $this->form()->openTag($form);
+echo $this->formCollection($form);
+echo $this->form()->closeTag();

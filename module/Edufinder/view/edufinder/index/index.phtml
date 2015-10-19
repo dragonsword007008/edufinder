@@ -1,16 +1,60 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Edufinder Index</title>
-</head>
+<div class="row">
+    <div id="wowslider-container1">
+      <div class="ws_images"><ul>
+         <li><img src="img/data1/images/homepage_bg.png" alt="Edufinder" title="Edufinder" id="wows1_0"/></li>
+      </ul></div>
+      <div class="ws_bullets">
+         <div>
+            <a href="#wows1_0" title="Edufinder"><span><img src="img/data1/tooltips/homepage_bg.png" alt="Edufinder"/>1</span></a>
+         </div>
+		</div>
+    </div>
+</div>	
+    <script type="text/javascript" src="js/engine1/wowslider.js"></script>
+    <script type="text/javascript" src="js/engine1/script.js"></script>
+    <!-- End WOWSlider.com BODY section -->
+<?php 
+	$form = $this->form;
+	$form->setAttribute('action', $this->url('edufinder/default', array('controller' => 'index', 'action' => 'search')));
+	$form->prepare();
+	echo $this->form()->openTag($form);
+?>
 
-<body>
-<h1>Edufinder Controller Index Action</h1>
-<p>
-	<a href="<?php echo $this->url('edufinder/default', array('controller' => 'index', 'action' => 'login'));?>"><?php echo $this->translate('Login'); ?></a>
-	|<a href="<?php echo $this->url('edufinder/default', array('controller' => 'registration', 'action' => 'index'));?>"><?php echo $this->translate('Register'); ?></a> |  
-	<a href="<?php echo $this->url('edufinder/default', array('controller' => 'registration', 'action' => 'forgotten-password'));?>"><?php echo $this->translate('Forgotten Password'); ?></a>
-</p>
-</body>
-</html>
+<div class="row">
+   <div id="wowslider-container1">
+       <div class="ws_images">
+         <img src="<?php echo $this->basePath('img/bar_find_a_educator.png') ?>" alt="find educators" style="width:100%"/>
+              <div class="form-group col-md-3">
+                <?php echo $this->formRow($form->get('postcode'));?>
+              </div>
+              <div class="form-group col-md-3">
+               <?php echo $this->formSelect($form->get('curricular_name'));?>
+              </div>
+              <div class="form-group col-md-3">
+                 <?php echo $this->formSelect($form->get('year_or_grade_curricular'));?>
+              </div>
+              <div class="form-group">
+                 <?php echo $this->formSubmit($form->get('submit'));?>	
+              </div>
+         </div>
+   </div>
+</div>
+<?php echo $this->form()->closeTag();?>
+
+<div class="row">
+	<div id="wowslider-container1">
+      <div class="ws_images">
+         <a href="<?php echo $this->url('edufinder/default', array('controller' => 'registration', 'action' => 'index','id' => 'parent')) ?>"><img src="<?php echo $this->basePath('img/homepage_parents_withbg_f.png') ?>" alt="parents" style="width:100%"/></a>
+      </div>
+   </div>
+</div>
+<div class="row"></div>
+
+<div class="row">
+	<div id="wowslider-container1">
+      <div class="ws_images">
+         <a href="<?php echo $this->url('edufinder/default', array('controller' => 'registration', 'action' => 'index', 'id' => 'educator')) ?>"><img src="<?php echo $this->basePath('img/homepage_educators_withbg_f.png') ?>" alt="educators" style="width:100%"/></a>
+      </div>
+   </div>
+</div>
+<div class="row"></div>

@@ -1,4 +1,4 @@
-<h1>Index = Retrieve</h1>
+<h1>Admin Page</h1>
 <a href="<?php echo $this->url('edufinder/default', array('controller' => 'admin', 'action' => 'create')); ?>">Create</a>
 <table>
 <tr>
@@ -11,14 +11,16 @@
 	foreach ($rowset as $row) {
 ?>
 		<tr>
-			<td><?php  echo $row['id']; ?></td>
+			<td><?php  echo $row['educator_id']; ?></td>
 			<td><?php  echo $row['first_name']; ?></td>
 			<td><?php  echo $row['last_name']; ?></td>
 			<td><?php  echo $row['email']; ?></td>
-			<td><a href="<?php echo $this->url('edufinder/default', array('controller' => 'admin', 'action' => 'update', 'id' => $row['id'])); ?>">Edit</a></td>
-			<td><a href="<?php echo $this->url('edufinder/default', array('controller' => 'admin', 'action' => 'delete', 'id' => $row['id']));?>" onclick="return confirm('Do you rely want to delete the record;')">Delete</a></td>
+			<td><a href="<?php echo $this->url('edufinder/default', array('controller' => 'admin', 'action' => 'update', 'id' => $row['educator_id'])); ?>">Edit</a></td>
+			<td><a href="<?php echo $this->url('edufinder/default', array('controller' => 'admin', 'action' => 'delete', 'id' => $row['educator_id']));?>" onclick="return confirm('Do you rely want to delete the record;')">Delete</a></td>
 		</tr>
 <?php
 	}
 ?>
 </table>
+
+<a href="<?php echo $this->url('edufinder/default', array('controller' => 'index', 'action' => 'logout'));?>"><?php echo $this->translate('Logout'); ?></a> 
