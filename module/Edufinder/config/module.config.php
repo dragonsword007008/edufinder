@@ -1,5 +1,8 @@
 <?php
 return array(
+'GMaps'=> array(
+        'api_key' => 'AIzaSyDga8VNSQueLMaRsSppfoVjahwiS-BCLHw',
+    ),
 'static_salt' => 'aFGQ475SDsdfsaf2342',
     'controllers' => array(
         'invokables' => array(

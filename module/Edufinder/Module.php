@@ -2,14 +2,17 @@
 namespace Edufinder; 
 // Add this for Table Date Gateway
 use Edufinder\Model\Users;
+use Edufinder\Model\Marker;
 use Edufinder\Model\EducatorTable;
 use Edufinder\Model\ParentTable;
+use Edufinder\Model\MarkerTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 // Add this for SMTP transport
 use Zend\ServiceManager\ServiceManager;
 use Zend\Mail\Transport\Smtp;
 use Zend\Mail\Transport\SmtpOptions;
+
 class Module
 {
     public function getConfig()
@@ -54,7 +57,17 @@ class Module
                     $resultSetPrototype->setArrayObjectPrototype(new Users()); // Notice what is set here
                     return new TableGateway('parent', $dbAdapter, null, $resultSetPrototype);
                 },
-                // Add this for SMTP transport
+					 'Edufinder\Model\MarkerTable' =>  function($sm) {
+                    $tableGateway = $sm->get('MarkerTableGateway');
+                    $table = new MarkerTable($tableGateway);
+                    return $table;
+                },
+					 'MarkerTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Marker()); // Notice what is set here
+                    return new TableGateway('marker', $dbAdapter, null, $resultSetPrototype);
+                },
                 'mail.transport' => function (ServiceManager $serviceManager) {
                     $config = $serviceManager->get('Config'); 
                     $transport = new Smtp();                

@@ -205,26 +205,9 @@ class RegistrationFilterEdu extends InputFilter
 				  
 			  	  $this->add(array(
 		            'name'       => 'photo',
-		            'required'   => true,
-						/*'allow_empty' => true,
-						'filter'		=> array(
-							array(
-								 'name' => 'filerenameupload',
-								 'options' => array(
-									  'target' => './data/uploads',
-									  'overwrite' => true,
-									  'use_upload_name' => true,
-								 ),							
-							)
-						),
-						'validators' => array(
-							array(
-								 'name' => 'Zend\Validator\File\Extension',
-								 'options' => array(
-									  'extension' => 'png,jpg',
-								 ),
-							),
-					  ),*/
+		            'required'   => false,
+						'allow_empty' => true,
+						
 		        ));
 				  
 				  $this->add(array(

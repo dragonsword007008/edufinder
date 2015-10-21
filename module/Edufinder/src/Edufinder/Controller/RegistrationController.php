@@ -44,28 +44,11 @@ class RegistrationController extends AbstractActionController
              if ($form->isValid()) {
 					 //$size = new Size(array('min'=>20000000)); //minimum bytes filesize 
 					 $adapter = new \Zend\File\Transfer\Adapter\Http(); 
-					 $adapter->setDestination('http://edufinder.localhost/img/uploads/'); //Windows
-					 //$adapter->setDestination('/var/www/html/edufinder/data/uploads/'); //Linux
+					 $adapter->setDestination('/var/www/html/edufinder/public/img/uploads'); 
 						  if ($adapter->receive($File['name'])) {
 								echo 'Profile picture uploaded';
-								$picture = dirname(__DIR__).'\data\uploads\\'.$File['name'];
-						  }
-					 /*$adapter->setValidators(array($size), $File['name']);
-					 if (!$adapter->isValid()){
-						  $dataError = $adapter->getMessages();
-						  $error = array();
-						  foreach($dataError as $key=>$row)
-						  {
-								$error[] = $row;
-						  } //set formElementErrors
-						  $form->setMessages(array('photo'=>$error ));
-					 } else {
-						  $adapter->setDestination(dirname(__DIR__).'data/uploads');
-						  if ($adapter->receive($File['name'])) {
-								echo 'Profile picture uploaded';
-								$picture = dirname(__DIR__).'/data/uploads/'.$File['name'];
-						  }
-					 }*/  			             
+								$picture = 'http://ec2-52-25-173-169.us-west-2.compute.amazonaws.com/img/uploads/'.$File['name'];
+						  }			             
                 $data = $form->getData();
                 $data = $this->prepareData($data);
                 $data['picture'] = $picture;
@@ -106,14 +89,14 @@ class RegistrationController extends AbstractActionController
 		  $token = $params[0];
 		  $role = $params[1];
 		  $email = $params[2];
-        $viewModel = new ViewModel(array('token' => $token));
+        $viewModel = new ViewModel(array('token' => $token,'email' => $email));
 		  try {
 			  $sm = $this->getServiceLocator();
 			  if($role == 'educator'){
 				  $users = $sm->get('Edufinder\Model\EducatorTable')->getUsersByToken($token);
 				  $users_id = $users->id;
 				  $sm->get('Edufinder\Model\EducatorTable')->activateUsers($users_id);
-				  $viewModel->setTemplate('edufinder/registration/educator/confirm-email.phtml');
+				  $viewModel->setTemplate('edufinder/registration/educator/confirm-email.phtml');				  
 				  }else if($role = 'parent'){
 					  $users = $sm->get('Edufinder\Model\ParentTable')->getUsersByToken($token);
 					  $users_id = $users->id;
@@ -124,7 +107,7 @@ class RegistrationController extends AbstractActionController
         catch(\Exception $e) {
             $viewModel->setTemplate('edufinder/registration/confirm-email-error.phtml');
         }
-        return $viewModel(array('email' => $email));
+        return $viewModel;
     }
 	 
     public function forgottenPasswordAction()
