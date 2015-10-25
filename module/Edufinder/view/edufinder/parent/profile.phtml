@@ -1,0 +1,43 @@
+<br><br><br><br>
+<div class="row" id="hat">
+   <img src="<?php echo $this->basePath('img/bar_student_profiles.png') ?>" alt="parents_register" style="width:100%"/>
+</div>
+<br>
+<?php
+	foreach ($rowset as $row) {
+?>
+   <div class="sectionPro sectionPro1"> 	
+          <h2>All Profiles</h2>
+          <h5>Created on <?php echo $row['registration_date'];?></h5>
+         <table class="table table-bordered parent">
+            <tr>
+               <td width="20%" style="text-align: left">
+               	<b><?php echo $row['first_name']; ?>
+            			<?php echo $row['last_name']; ?>
+                  </b>
+                  <br>
+                  Year <?php echo $row['year_or_grade_parent']; ?>
+                  <br>
+                  <?php echo $row['curricular_area']; ?>
+               </td>
+               <td width="50%">
+               	 <?php echo $row['description']; ?>
+               </td>
+                <td width="20%">
+                
+						<a href="<?php echo $row['picture']; ?>"><img src="http://edufinder.localhost/img/uploads/free-vector-document-icon-clip-art_117163_Document_Icon_clip_art_hight.png" width="30px"/></a>
+                  <br><?php echo basename($row['picture']); ?>
+                                  
+               	 
+               </td>
+               <td width="10%">
+               	 <span style="color:lightgrey;">Action</span>
+               </td>
+            </tr>
+          </table>             
+   </div>
+  
+   <br>
+<?php
+	}
+?>

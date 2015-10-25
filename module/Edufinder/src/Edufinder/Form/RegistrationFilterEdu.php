@@ -35,11 +35,12 @@ class RegistrationFilterEdu extends InputFilter
 							array('name' => 'StringTrim'),
 							array('name' => 'Int'),
 						),
+						'error_message' => 'Please enter 4 digits postcode',
 		            'validators' => array(
 							 array(
 									'name' => 'Regex',
 									'options' => array(
-										'pattern' => '/\d{4}/',
+										'pattern' => '/^[0-9]{4}$/',
 									),
 							  ),
 							 
@@ -54,6 +55,7 @@ class RegistrationFilterEdu extends InputFilter
 							array('name' => 'StringTrim'),
 							array('name' => 'Int'),
 						),
+						'error_message' => 'Wrong format!',
 		            'validators' => array(
 							 array(
 									'name' => 'Regex',
@@ -118,15 +120,11 @@ class RegistrationFilterEdu extends InputFilter
 				  $this->add(array(
 		            'name'       => 'agree_term',
 		            'required'   => true,
+						'error_message' => 'You must agree to the terms of use.',
 		            'validators' => array(
 							 array(
 									'name' => 'Digits',
 									'break_chain_on_failure' => true,
-									'options' => array(
-                                    'messages' => array(
-                                        'notDigits' => 'You must agree to the terms of use.',
-                                    ),
-                            ),
 							  ),
 							 
 		            ),
@@ -207,7 +205,14 @@ class RegistrationFilterEdu extends InputFilter
 		            'name'       => 'photo',
 		            'required'   => false,
 						'allow_empty' => true,
-						
+						'validators' => array(
+							array(
+								 'name' => 'Zend\Validator\File\Extension',
+								 'options' => array(
+									  'extension' => array('png', 'jpg', 'gif'),
+								 ),
+							),
+					  ),
 		        ));
 				  
 				  $this->add(array(

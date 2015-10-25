@@ -79,18 +79,12 @@ class ParentTable
             'state'              => $parent->state,
             'mobile_number'              => $parent->mobile_number,
 				'gender'              => $parent->gender,
-				'child_protection_number'              => $parent->child_protection_number,
-				'verified_child_protection_number'              => $parent->verified_child_protection_number,
-				'profile_description'              => $parent->profile_description,
-				'curricular_name'              => $parent->curricular_name,
-				'year_or_grade_curricular'              => $parent->year_or_grade_curricular,
-				'tuition_service_curricular'              => $parent->tuition_service_curricular,
-				'hourly_rate_curricular'              => $parent->hourly_rate_curricular,
-				'specialisation_name'              => $parent->specialisation_name,
-				'year_or_grade_specialisation'              => $parent->year_or_grade_specialisation,
-				'tuition_service_specialisation'              => $parent->tuition_service_specialisation,
-				'hourly_rate_specialisation'              => $parent->hourly_rate_specialisation,
+				'student_name'              => $parent->student_name,
+				'curricular_area'              => $parent->curricular_area,
+				'description'              => $parent->description,
+				'year_or_grade_parent'              => $parent->year_or_grade_parent,
 				'agree_term'										=> $parent->agree_term,
+				'role'					=> $parent->role,
         );
 
         $id = (int)$parent->id;

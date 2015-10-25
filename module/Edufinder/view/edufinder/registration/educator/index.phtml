@@ -55,6 +55,7 @@ echo $this->form()->openTag($form);
       </div>
       <div class="checkbox col-md-12">
          <?php echo $this->formCheckbox($form->get('agree_term')); ?><label>* I agree to the Terms & Conditions</label>
+         <?php echo $this->formElementerrors($form->get('agree_term')); ?>
       </div>
       <div><a href="#hat" class="btn btn-danger col-md-1 pull-right" id="next1">Next</a></div>
       <br><br><br><br><br><br><br><br><br><br><br><br>

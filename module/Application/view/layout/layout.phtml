@@ -49,8 +49,20 @@
                         <li ><a href="<?php echo $this->url('edufinder') ?>"><?php echo $this->translate('Contact Us') ?></a></li>
                     </ul>
                       <ul class="nav navbar-nav navbar-right hdright">
-                        <li ><a class="navbar-brand" href="<?php echo $this->url('edufinder/default', array('controller' => 'registration', 'action' => 'index')) ?>"><img src="<?php echo $this->basePath('img/signup.png') ?>" alt="sign up"/></a></li>
+                      
+							<?php if ($user = $this->identity()) { ?>
+                     <li>
+                     Login as <a style="display:inline;color: #428bca;text-decoration: none;font-size:medium"" href="<?php echo $this->url('edufinder/default', array('controller' => $this->escapeHtml($user->role), 'action' => 'profile','id'=>$this->escapeHtml($user->email))) ?>"><?php echo $this->escapeHtml($user->email);?></a>
+                     </li>
+                     <li>| <a  style="display:inline;color: #428bca;text-decoration: none;font-size:medium" href="<?php echo $this->url('edufinder/default', array('controller' => 'index', 'action' => 'logout'));?>"><?php echo $this->translate('Logout'); ?></a> 
+                     </li>
+                     <?php
+                     } else {
+                     ?>
+                           
+                        <li ><a class="navbar-brand" href="<?php echo $this->url('edufinder/default', array('controller' => 'registration', 'action' => 'register')) ?>"><img src="<?php echo $this->basePath('img/signup.png') ?>" alt="sign up"/></a></li>
                         <li ><a class="navbar-brand" href="<?php echo $this->url('edufinder/default', array('controller' => 'index', 'action' => 'login')) ?>"><img src="<?php echo $this->basePath('img/login.png') ?>" alt="login"/></a></li>
+<?php } ?>                   
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>

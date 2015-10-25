@@ -1,10 +1,100 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Untitled Document</title>
-</head>
+<br><br><br><br>
+<div class="row" id="hat">
+   <img src="<?php echo $this->basePath('img/bar_signup.png') ?>" alt="parents_register" style="width:100%"/>
+</div>
+<br>
+<div class="row" style="text-align:center">
+   <img src="<?php echo $this->basePath('img/signup2-1.png') ?>" alt="parents_register" id="bar1"/>
+   <img src="<?php echo $this->basePath('img/signup2-2.png') ?>" alt="parents_register" id="bar2"/>
+</div>
+<br>
 
-<body>
-</body>
-</html>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('edufinder/default', array('controller' => 'registration', 'action' => 'index', 'id' => 'parent')));
+$form->prepare();
+echo $this->form()->openTag($form);
+?>
+	<h5 style="color:grey">Please fill in all mandetory fields</h5>
+   <br>
+   <div id="section1">
+   	<div class="jumbotron">
+      <div class="form-group col-md-6">
+         <?php echo $this->formRow($form->get('first_name')); ?>
+      </div>
+      <div class="form-group col-md-6">
+         <?php echo $this->formRow($form->get('last_name')); ?>
+      </div>
+      <div class="form-group col-md-12">
+         <?php echo $this->formRadio($form->get('gender')); ?>
+      </div>     
+      <div class="form-group col-md-12">
+         <?php echo $this->formRow($form->get('email')); ?>
+      </div>
+      <div class="form-group col-md-6">
+         <?php echo $this->formRow($form->get('password')); ?>
+      </div>
+      <div class="form-group col-md-6">
+         <?php echo $this->formRow($form->get('password_confirm')); ?>
+      </div>
+      <div class="form-group col-md-6">
+         <?php echo $this->formRow($form->get('mobile_number')); ?>
+      </div>
+      <div class="form-group col-md-6">
+         <span class="form-control" style="visibility:hidden">&nbsp;</span>
+      </div>
+      <div class="form-group col-md-4">
+         <?php echo $this->formRow($form->get('suburb')); ?>
+      </div>
+      <div class="form-group col-md-4">
+         <?php echo $this->formRow($form->get('postcode')); ?>
+      </div>
+      <div class="form-group col-md-4">
+         <?php echo $this->formRow($form->get('state')); ?>
+      </div>
+      <div class="checkbox col-md-12">
+         <?php echo $this->formCheckbox($form->get('agree_term')); ?><label>* I agree to the Terms & Conditions</label>
+         <?php echo $this->formElementerrors($form->get('agree_term')); ?>
+      </div>
+      <div><a href="#hat" class="btn btn-danger col-md-1 pull-right" id="next1">Next</a></div>
+      <br><br><br><br><br><br><br><br><br><br><br><br>
+      </div>
+   </div>
+   
+   <div id="section2">
+  		<div class="jumbotron">
+      <h4>Student Profile</h4>
+      <div class="form-group col-md-4">
+         <?php echo $this->formRow($form->get('student_name')); ?>
+      </div>
+      <div class="form-group col-md-4">
+         <?php echo $this->formRow($form->get('curricular_area')); ?>
+      </div>
+      <div class="form-group col-md-4">
+         <?php echo $this->formSelect($form->get('year_or_grade_parent')); ?>
+      </div>
+      <div class="form-group col-md-12">
+         <?php echo $this->formRow($form->get('description')); ?>
+      </div>
+      <div class="form-group col-md-12">
+         <?php echo $this->formRow($form->get('photo')); ?>
+      </div>
+      <div class="form-group col-md-12">
+         <?php echo $this->formRow($form->get('captcha')); ?>
+      </div>
+      <div>
+      	<?php echo $this->formSubmit($form->get('submit')) ?>
+         <a href="#hat" class="btn btn-danger col-md-1 pull-right" id="back2">Back</a>
+      </div>
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+      </div>
+   </div>
+   <br>
+
+<?php echo $this->form()->closeTag(); ?>
+<br>
+
+<p>
+	<a href="<?php echo $this->url('edufinder/default', array('controller' => 'index', 'action' => 'login'));?>"><?php echo $this->translate('Login'); ?></a> |
+	<a href="<?php echo $this->url('edufinder/default', array('controller' => 'registration', 'action' => 'forgotten-password'));?>"><?php echo $this->translate('Forgotten Password'); ?></a>
+</p>

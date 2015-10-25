@@ -91,6 +91,7 @@ class EducatorTable
 				'tuition_service_specialisation'              => $educator->tuition_service_specialisation,
 				'hourly_rate_specialisation'              => $educator->hourly_rate_specialisation,
 				'agree_term'										=> $educator->agree_term,
+				'role'					=>	$educator->role,
         );
 
         $id = (int)$educator->id;

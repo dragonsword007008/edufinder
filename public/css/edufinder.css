@@ -1,7 +1,9 @@
 body {
 	background-color: #cec8be;
 	}
-	
+.container {
+	width: 1370px;	
+	}	
 .navbar-inverse {
 	background-color: #d9d6cf;
 	background-image: inherit ;
@@ -23,7 +25,7 @@ body {
 	}
 
 .hdright {
-	margin:	auto !important;
+	margin-top: 0px !important;
 	}
 
 .hdright>li>a {
@@ -117,6 +119,14 @@ div.checkbox input {
 	 padding: 2em;
 	 margin-bottom: 2em;
 	}	
+
+.parent {
+	text-align: center;
+	}
+	
+.parent>tbody>tr>td {
+	border: 2px solid #ddd !important;
+}
 			
 @media (min-width: 768px){
 	.navbar-nav {

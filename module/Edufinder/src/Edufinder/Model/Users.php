@@ -38,7 +38,9 @@ class Users implements InputFilterAwareInterface
 	 public $curricular_area; 
 	 public $year_or_grade_parent; 
 	 public $description;
-	 public $agree_term;      
+	 public $agree_term;
+	 public $role;
+	       
     // Hydration
     // ArrayObject, or at least implement exchangeArray. For Zend\Db\ResultSet\ResultSet to work
     public function exchangeArray($data) 
@@ -75,6 +77,7 @@ class Users implements InputFilterAwareInterface
 		  $this->year_or_grade_parent = (isset($data['year_or_grade_parent'])) ? $data['year_or_grade_parent'] : null;
 		  $this->description = (isset($data['description'])) ? $data['description'] : null;
 		  $this->agree_term = (isset($data['agree_term'])) ? $data['agree_term'] : null;
+		  $this->role = (isset($data['role'])) ? $data['role'] : null;
     }   
 
     public function getArrayCopy()
@@ -130,6 +133,13 @@ class Users implements InputFilterAwareInterface
                     ),
                 ),
             )));
+				$inputFilter->add($factory->createInput(array(
+                'name'     => 'role',
+                'required' => true,
+					 'error_message' => 'Please choose a role!'
+               
+            )));
+				
             $this->inputFilter = $inputFilter;
         }
         return $this->inputFilter;

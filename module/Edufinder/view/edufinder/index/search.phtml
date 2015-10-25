@@ -7,11 +7,15 @@
 		<?php
 			foreach ($rowset as $row) {
 		?>
-                  <h5><?php echo $row['curricular_name']; ?></h5>
             <tr class="description">
-            	<td rowspan="10" style="width:15%">
+            	<td style="width:15%">
                	 <div>
-               	    <img src="<?php echo $row['picture']; ?>" alt="avatar" width="100%"/>
+                    <?php if($row['picture']==null){
+							 $pic_url = 'http://ec2-52-25-173-169.us-west-2.compute.amazonaws.com/img/uploads/uploadphoto_default.png';
+							 }else{
+								 $pic_url=$row['picture'];
+						  }?>
+               	    <img src="<?php echo $pic_url; ?>" alt="avatar" width="100%"/>
                    </div>                
                </td>
                <td>
@@ -28,5 +32,9 @@
        <?php
 			}
 		?>
-          </table>             
+          </table> 
+<div class="jumbotron">
+   <h4> Educators in this area Postcode: <?php echo $this->postcode; if ($this->postcode == null){echo "no postcode specified!";}?></h4>
+	<?php echo $this->map_html; ?>
+</div>            
    </div>

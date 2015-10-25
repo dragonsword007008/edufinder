@@ -7,8 +7,6 @@ use Edufinder\Form\RegistrationFormEdu;
 use Edufinder\Form\RegistrationFilterEdu;
 use Edufinder\Form\RegistrationFormPar;
 use Edufinder\Form\RegistrationFilterPar;
-use Edufinder\Form\ForgottenPasswordForm;
-use Edufinder\Form\ForgottenPasswordFilter;
 use Zend\Mail\Message;
 use Zend\Validator\File\Size;
 
@@ -41,17 +39,23 @@ class RegistrationController extends AbstractActionController
 						$request->getFiles()->toArray()
 				  );
             $form->setData($data);
+				/*var_dump($form->isValid());
+			var_dump($form->getMessages());
+			var_dump($form->getInputFilter()->getMessages());*/
              if ($form->isValid()) {
 					 //$size = new Size(array('min'=>20000000)); //minimum bytes filesize 
 					 $adapter = new \Zend\File\Transfer\Adapter\Http(); 
 					 $adapter->setDestination('/var/www/html/edufinder/public/img/uploads'); 
+					 					 //$adapter->setDestination('C:\wamp\www\edufinder\public\img\uploads'); 
+
 						  if ($adapter->receive($File['name'])) {
 								echo 'Profile picture uploaded';
-								$picture = 'http://ec2-52-25-173-169.us-west-2.compute.amazonaws.com/img/uploads/'.$File['name'];
+								$picture = 'http://ec2-52-25-173-169.us-west-2.compute.amazonaws.com/'.$File['name'];
 						  }			             
                 $data = $form->getData();
                 $data = $this->prepareData($data);
                 $data['picture'] = $picture;
+					 $data['role'] = $role;
 					 $users = new Users();
                 $users->exchangeArray($data);
                 $this->getUsersTable()->saveUsers($users);
@@ -70,6 +74,10 @@ class RegistrationController extends AbstractActionController
         return $view;
     }
     
+	 public function registerAction(){
+		 return new ViewModel();
+		 }
+	 
     public function registrationSuccessAction()
     {
         $email = null;

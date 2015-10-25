@@ -3,7 +3,6 @@
    <img src="<?php echo $this->basePath('img/bar_educator.png') ?>" alt="educators_register" style="width:100%"/>
 </div>
 <br>
-<?php echo $this->map_html; ?>
 <?php
 	foreach ($rowset as $row) {
 ?>
@@ -12,7 +11,12 @@
             <tr>
             	<td rowspan="10" style="width:30%">
                	 <div>
-               	    <img src="<?php echo $row['picture']; ?>" alt="avatar" width="100%"/>
+                   <?php if($row['picture']==null){
+							 $pic_url = 'http://ec2-52-25-173-169.us-west-2.compute.amazonaws.com/img/uploads/uploadphoto_default.png';
+							 }else{
+								 $pic_url=$row['picture'];
+						  }?>
+               	    <img src="<?php echo $pic_url; ?>" alt="avatar" width="100%"/>
                    </div>                
                </td>
                <td id="name">
@@ -99,4 +103,3 @@
 <?php
 	}
 ?>
-	<p><a href="<?php echo $this->url('edufinder/default', array('controller' => 'index', 'action' => 'logout'));?>"><?php echo $this->translate('Logout'); ?></a></p>

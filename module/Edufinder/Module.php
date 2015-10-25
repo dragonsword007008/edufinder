@@ -48,7 +48,7 @@ class Module
                 },
 					 'Edufinder\Model\ParentTable' =>  function($sm) {
                     $tableGateway = $sm->get('ParentTableGateway');
-                    $table = new EducatorTable($tableGateway);
+                    $table = new ParentTable($tableGateway);
                     return $table;
                 },
                 'ParentTableGateway' => function ($sm) {

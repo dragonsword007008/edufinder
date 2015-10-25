@@ -50,6 +50,7 @@ class RegistrationFormEdu extends Form
 			),
         	'options' => array(
         		'captcha' => new \Zend\Captcha\Figlet(),
+            'label' => 'Please key in Captha shown below',
         	),
         ));
 
@@ -271,7 +272,6 @@ class RegistrationFormEdu extends Form
             'name' => 'agree_term',
 				'type' => 'checkbox',
 				'options' => array(
-				 	  'use_hidden_element' => true,
 					  'checked_value' => 1,
 					  'unchecked_value' => 'no'
 				 )
